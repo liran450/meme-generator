@@ -21,7 +21,7 @@ img {
 }
 
 .logo {
-    font-size:17px;
+    font-size: 17px;
     padding-left: 82px
 }
 
@@ -38,12 +38,13 @@ img {
 
 .canvas-container {
     border: solid 1px black;
-width: 100px;
+    /* width: 100px; */
 }
 
 /* layout */
+
 .meme-page {
-    display:none;
+    display: none;
 }
 
 .img-container {
@@ -57,16 +58,28 @@ width: 100px;
     justify-content: center;
     margin-bottom: 200px;
     height: 80vh;
-overflow: scroll;}
+    overflow: scroll;
+}
 
-.img-container img{
+.img-container img {
     border-radius: 1em;
     cursor: pointer;
 }
 
+.meme-editor-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* flex: 1; */
+    gap: 20px;
+    flex-direction: row;
+}
 
+.canvas, .ctrl-container {
+    flex-basis: 50%;
+}
 
 /* helpers */
+
 .flex {
     display: flex;
 }
@@ -82,8 +95,6 @@ overflow: scroll;}
 .flex.justify-content {
     justify-content: center;
 }
-
-
 
 .clean-list {
     list-style-type: none;

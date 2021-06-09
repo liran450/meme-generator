@@ -18,7 +18,8 @@ var gImgs = [
     {id: 15, url: 'img/15.jpg', keywords: ['happy']},
     {id: 16, url: 'img/16.jpg', keywords: ['happy']},
     {id: 17, url: 'img/17.jpg', keywords: ['happy']},
-    {id: 18, url: 'img/18.jpg', keywords: ['happy']}
+    {id: 18, url: 'img/18.jpg', keywords: ['happy']},
+    {id: 19, url: 'img/19.jpg', keywords: ['happy']}
 ];
 
 // function resizeCanvas() {
@@ -26,3 +27,11 @@ var gImgs = [
 //     gCanvas.width = elContainer.offsetWidth
 //     gCanvas.height = elContainer.offsetHeight
 // }
+
+function showMemePage() {
+    var elPageContainer = document.querySelector('.main-container')
+    var elMemePage = document.querySelector('.meme-page')   
+    elPageContainer.style.display = 'none';
+    elMemePage.style.display = 'block'
+}
+
