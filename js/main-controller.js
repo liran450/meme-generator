@@ -43,7 +43,17 @@ function onDrawText(elInput) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     drawImg(gCurrImg)
     drawText(elInput.value)
-// console.log()
+    renderLines()
 }
 
+function onChangeFontSize(size) {
+    changeTextSize(size)
+}
 
+function onChangeHeight(height) {
+    changeRowHeight(height)
+}
+
+function onAddLine() {
+    addLine()
+}

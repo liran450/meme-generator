@@ -42,14 +42,14 @@
                 <input type="text" oninput="onDrawText(this)">
                 <div class="ctrl-btns">
                     <button class="switch">switch</button>
-                    <button class="move-up">up</button>
-                    <button class="move-down">down</button>
-                    <button class="add">add line</button>
+                    <button class="move-up" onclick="onChangeHeight(-15)">up</button>
+                    <button class="move-down" onclick="onChangeHeight(15)">down</button>
+                    <button class="add" onclick="onAddLine()">add line</button>
                     <button class="delete">del</button>
                 </div>
                 <div class="font-btns">
-                    <button class="text-bigger">+</button>
-                    <button class="text-smaller">-</button>
+                    <button class="text-bigger" onclick="onChangeFontSize(2)">+</button>
+                    <button class="text-smaller" onclick="onChangeFontSize(-2)">-</button>
                     <button class="text-left">left</button>
                     <button class="text-middle">mid</button>
                     <button class="text-right">right</button>
