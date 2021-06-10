@@ -25,7 +25,6 @@ function onClickImg(img, imgId) {
     gCurrImg = img
     drawImg(gCurrImg)
     updateSelectedImg(imgId)
-    // onDrawLine()
     var text = gMeme.lines[0].txt
     drawText(text)
 }
@@ -34,6 +33,7 @@ function drawImg(img) {
     var elCanvasContainer = document.querySelector('.canvas-container')
     gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
     // gCanvas.width = img.naturalHeight * gCanvas.height / img.naturalWidth
+    // gCanvas.width *= 0.8
     elCanvasContainer.style.width = gCanvas.width + 'px'
     elCanvasContainer.style.height = gCanvas.height + 'px'
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
@@ -41,8 +41,12 @@ function drawImg(img) {
 
 function onDrawText(elInput) {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    // var posX = gMeme.lines[gMeme.selectedLineIdx].pos.x
+    // var posY = gMeme.lines[gMeme.selectedLineIdx].pos.y
+    // var size = gMeme.lines[gMeme.selectedLineIdx].size
     drawImg(gCurrImg)
-    drawText(elInput.value)
+    // drawText(elInput.value, posX, posY, size)
+    gMeme.lines[gMeme.selectedLineIdx].txt = elInput.value
     renderLines()
 }
 
@@ -56,4 +60,16 @@ function onChangeHeight(height) {
 
 function onAddLine() {
     addLine()
+}
+
+function onChangeColor(elInput) {
+    changeColor(elInput.value)
+}
+
+function onChangeAlign(elBtn) {
+    changeTextAlign(elBtn.classList)
+}
+
+function onSwitchLines() {
+    switchLines()
 }

@@ -1,17 +1,20 @@
-var gCurrLineId = 1;
+// var gLineId = 1;
+var gLineId = 0
 
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [
         {
-            id: 1,
+            id: 0,
             txt: 'I never eat Falafel',
             size: 40,
             align: 'left',
             color: 'red',
             font: 'Impact',
-            pos: { x: 100, y: 100 }
+            pos: { x: 200, y: 100 },
+            isSelected: false,
+            width: null
         },
     ]
 }
@@ -21,68 +24,121 @@ function updateSelectedImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function drawText(text, x = 100, y = 100) {
-    gMeme.lines[gCurrLineId-1].txt = text
-    // renderLines()
-
-    // console.log(`${text}`);
-    // console.log(`${gMeme.lines[gCurrLineId-1].size}`);
-    gCtx.lineWidth = 2
-    gCtx.strokeStyle = gMeme.lines[gCurrLineId-1].color
-    // gCtx.fillStyle = 'white'
-    gCtx.font = `${gMeme.lines[gCurrLineId-1].size}px ${gMeme.font}`
-    // gCtx.textAlign = 'center'
+function drawText(text, x, y, size, color, align) {
+    gCtx.beginPath()
+    gCtx.lineWidth = 1
+    gCtx.strokeStyle = 'black'
+    gCtx.fillStyle = color
+    gCtx.font = `${size}px ${gMeme.font}`
+    // gCtx.fillText(text, x, y)
+    gCtx.textAlign = align
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+    var textWidth = gCtx.measureText(text).width
+    gMeme.lines[gMeme.selectedLineIdx].width = textWidth
+    gCtx.closePath()
 }
 
 function changeTextSize(size) {
     // make a return that it cannot go below a certain number
     // var currSize = (gMeme.lines[0].size === 10) ? 1: size
     // console.log(currSize);
-    var currText = gMeme.lines[0].txt
-    gMeme.lines[0].size += size
+
+    gMeme.lines[gMeme.selectedLineIdx].size += size
+    // console.log(gMeme.lines[gMeme.selectedLineIdx].size);
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     drawImg(gCurrImg)
-    drawText(currText)
+    renderLines()
 }
 
 function changeRowHeight(height) {
-    var currText = gMeme.lines[0].txt
-    gMeme.lines[0].pos.y += height
-    var posY = gMeme.lines[0].pos.y
-    var posX = gMeme.lines[0].pos.x
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += height
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     drawImg(gCurrImg)
-    drawText(currText, posX, posY)
+    renderLines()
 }
 
 function addLine() {
     var y = gCanvas.height - 100
-    console.log(y);
-    gCurrLineId++;
-    if (gCurrLineId === 2) y = gCanvas.height / 2
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
-
+    // var txt = ''
+    gLineId++;
+    if (gLineId >= 2) y = gCanvas.height / 2
+    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    // drawImg(gCurrImg)
+    gMeme.selectedLineIdx++
     gMeme.lines.push({
-        id: gCurrLineId,
+        id: gLineId,
         txt: 'I never eat Falafel',
         size: 40,
         align: 'left',
         color: 'red',
         font: 'Impact',
-        pos: { x: 100, y }
+        pos: { x: 200, y }
     })
     renderLines()
 }
 
 function renderLines() {
-    for (var i = 0; i < gCurrLineId; i++) {
-        var currText = gMeme.lines[i].txt
-        var posX = gMeme.lines[i].pos.x
-        var posY = gMeme.lines[i].pos.y
+    gMeme.lines.forEach((line) => {
+        var currText = line.txt
+        var posX = line.pos.x
+        var posY = line.pos.y
+        var size = line.size
+        var color = line.color
+        var align = line.align
+        drawText(currText, posX, posY, size, color, align)
+    })
+    // LineSquare()
+}
 
-        drawText(currText, posX, posY)
+function changeColor(fillColor) {
+    gMeme.lines[gMeme.selectedLineIdx].color = fillColor
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    drawImg(gCurrImg)
+    renderLines()
+}
+
+function changeTextAlign(btnClass) {
+    if (btnClass.contains('text-left')) {
+        gMeme.lines[gMeme.selectedLineIdx].align = 'right'
+    } else if (btnClass.contains('text-middle')) {
+        gMeme.lines[gMeme.selectedLineIdx].align = 'center'
     }
+    else {
+        gMeme.lines[gMeme.selectedLineIdx].align = 'left'
+    }
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    drawImg(gCurrImg)
+
+    renderLines()
+}
+
+function switchLines() {
+    var linesCount = gMeme.lines.length
+    console.log('linesCount', linesCount);
+    if (gMeme.selectedLineIdx < linesCount - 1) gMeme.selectedLineIdx += 1
+    else gMeme.selectedLineIdx = 0
+    console.log('Selected Line:', gMeme.selectedLineIdx);
+    LineSquare() 
+    renderLines()
+}
+
+function LineSquare() {
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    drawImg(gCurrImg)
+    var linePosX = gMeme.lines[gMeme.selectedLineIdx].pos.x
+    var linePosY = gMeme.lines[gMeme.selectedLineIdx].pos.y
+    var lineHeight = gMeme.lines[gMeme.selectedLineIdx].size
+    // debugger
+    var lineWidth = gMeme.lines[gMeme.selectedLineIdx].width
+    // console.log(lineWidth);
+    gCtx.beginPath()
+    gCtx.lineWidth = 1
+    gCtx.moveTo(linePosX - 40, linePosY - 40)
+    gCtx.lineTo(linePosX + lineWidth + 40, linePosY - 40)
+    gCtx.lineTo(linePosX + lineWidth + 40, linePosY + 20)
+    gCtx.lineTo(linePosX - 40, linePosY + 20)
+    gCtx.lineTo(linePosX - 40, linePosY - 40)
+    gCtx.strokeStyle = 'black'
+    gCtx.stroke()
 }

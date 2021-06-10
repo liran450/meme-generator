@@ -14,7 +14,7 @@ img {
 }
 
 .main-header {
-    max-width: 1258px;
+    /* max-width: 1258px; */
     /* height: 150px; */
     background-image: linear-gradient( 90deg, #0f9ab4, #30bb72);
     border-radius: 3em;
@@ -45,6 +45,8 @@ img {
 
 .meme-page {
     display: none;
+    max-width: 1258px;
+    margin: 0 auto;
 }
 
 .img-container {
@@ -69,13 +71,15 @@ img {
 .meme-editor-container {
     display: flex;
     flex-wrap: wrap;
-    /* flex: 1; */
+    flex: 1;
     gap: 20px;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;:
 }
 
 .canvas, .ctrl-container {
-    flex-basis: 50%;
+    /* flex-basis: 50%; */
 }
 
 /* helpers */

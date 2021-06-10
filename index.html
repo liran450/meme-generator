@@ -41,7 +41,7 @@
             <div class="ctrl-container">
                 <input type="text" oninput="onDrawText(this)">
                 <div class="ctrl-btns">
-                    <button class="switch">switch</button>
+                    <button class="switch" onclick=onSwitchLines()>switch</button>
                     <button class="move-up" onclick="onChangeHeight(-15)">up</button>
                     <button class="move-down" onclick="onChangeHeight(15)">down</button>
                     <button class="add" onclick="onAddLine()">add line</button>
@@ -50,14 +50,14 @@
                 <div class="font-btns">
                     <button class="text-bigger" onclick="onChangeFontSize(2)">+</button>
                     <button class="text-smaller" onclick="onChangeFontSize(-2)">-</button>
-                    <button class="text-left">left</button>
-                    <button class="text-middle">mid</button>
-                    <button class="text-right">right</button>
+                    <button class="text-left" onclick="onChangeAlign(this)">left</button>
+                    <button class="text-middle" onclick="onChangeAlign(this)">mid</button>
+                    <button class="text-right" onclick="onChangeAlign(this)">right</button>
                     <select>
                         <option value="impact">Impact</option>
                     </select>
                     <button class="text-stroke">S</button>
-                    <input type="color">
+                    <input type="color" onchange="onChangeColor(this)">
                 </div>
                 <div class="share-btns">
                     <button class="share">Share</button>
