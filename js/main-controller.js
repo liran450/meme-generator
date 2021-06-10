@@ -20,6 +20,18 @@ function renderGallery() {
     document.querySelector('.img-container').innerHTML = strHTMLs
 }
 
+function renderLines() {
+    gMeme.lines.forEach((line) => {
+        var currText = line.txt
+        var posX = line.pos.x
+        var posY = line.pos.y
+        var size = line.size
+        var color = line.color
+        var align = line.align
+        drawText(currText, posX, posY, size, color, align)
+    })
+}
+
 function onClickImg(img, imgId) {
     showMemePage()
     gCurrImg = img
@@ -72,4 +84,8 @@ function onChangeAlign(elBtn) {
 
 function onSwitchLines() {
     switchLines()
+}
+
+function onDeleteLine() {
+    deleteLine()
 }

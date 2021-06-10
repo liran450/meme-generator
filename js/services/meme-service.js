@@ -78,17 +78,7 @@ function addLine() {
     renderLines()
 }
 
-function renderLines() {
-    gMeme.lines.forEach((line) => {
-        var currText = line.txt
-        var posX = line.pos.x
-        var posY = line.pos.y
-        var size = line.size
-        var color = line.color
-        var align = line.align
-        drawText(currText, posX, posY, size, color, align)
-    })
-}
+
 // if (gMeme.lines[gMeme.selectedLineIdx].isSelected) lineSquare()
 
 function changeColor(fillColor) {
@@ -141,4 +131,17 @@ function lineSquare() {
     gCtx.lineTo(linePosX - 40, linePosY - 40)
     gCtx.strokeStyle = 'black'
     gCtx.stroke()
+}
+
+function deleteLine() {
+    if (gMeme.lines.length === 1) return
+    var prevLineIdx = gMeme.selectedLineIdx
+    var idx = gMeme.lines.findIndex((line) => {
+        return line.isSelected
+    })
+    gMeme.lines.splice(idx, 1)
+    gMeme.selectedLineIdx = prevLineIdx -1
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+    drawImg(gCurrImg)
+    renderLines()
 }

@@ -15,8 +15,6 @@ body {
 }
 
 .main-header {
-    /* max-width: 1258px; */
-    /* height: 150px; */
     background-image: linear-gradient( 90deg, #0f9ab4, #30bb72);
     border-radius: 3em;
     margin-bottom: 20px;
@@ -28,36 +26,8 @@ body {
 }
 
 .logo img {
-    /* width: 100%; */
     height: 100%;
     object-fit: cover;
-}
-
-.main-header ul {
-    padding-right: 30px;
-}
-
-/* .main-header li .second {
-    text-decoration: none;
-    line-height: 3.272;
-    font-size: 1.375rem;
-    padding: 5px 13px;
-    color: #fff;
-    transition: .5s;
-}
-
-.main-header li .first {
-    color: #21ac91;
-    text-decoration: none;
-    line-height: 3.272;
-    font-size: 1.375rem;
-    padding: 5px 13px;
-    background-color: #fff;
-    border-radius: 3em;
-} */
-
-.main-header .header-list li {
-    margin-inline-end: 42px;
 }
 
 /* Screen */
@@ -74,14 +44,12 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, .7);
     cursor: pointer;
-    /* display: none; */
     pointer-events: none;
     opacity: 0;
     transition: opacity .6s;
 }
 
 body.menu-open .main-screen {
-    /* display: block; */
     pointer-events: auto;
     opacity: 1;
     z-index: 1;
@@ -89,6 +57,14 @@ body.menu-open .main-screen {
 
 /* layout */
 
+
+.main-header ul {
+    padding-right: 30px;
+}
+
+.main-header .header-list li {
+    margin-inline-end: 42px;
+}
 
 .meme-page {
     display: none;
@@ -171,13 +147,11 @@ body.menu-open .main-screen {
 .meme-editor-container {
     display: flex;
     flex-wrap: wrap;
-    /* flex: 1; */
     gap: 20px;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     padding: 0 80px;
-    /* padding-top: 30px; */
     height: auto;
     overflow: auto;
     overflow-x: hidden;
@@ -185,7 +159,6 @@ body.menu-open .main-screen {
 }
 
 .ctrl-container {
-    /* flex: 1; */
     background-color: #383b42;
     padding: 15px 50px;
     border-radius: 20px;
@@ -194,38 +167,27 @@ body.menu-open .main-screen {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    /* width: 100%; */
-    /* height: inherit; */
-    /* 
-    width: 500px; */
 }
 
-.canvas-container {
-    /* flex: 1; */
-}
 
 canvas {
     border-radius: 20px;
     border: 10px solid #383b42;
     width: 100%;
-    /* height: 100%; */
     min-width: 300px;
 }
 
 .ctrl-container .meme-input {
-    /* display: block; */
     width: 100%;
     height: 50px;
     border-radius: 3em;
     border: none;
-    /* margin: 0 auto; */
     font-size: 2em;
     padding-left: 30px;
 }
 
 
 .ctrl-container .ctrl-btns {
-    /* display: flex; */
     width: 100%;
 }
 
@@ -236,7 +198,6 @@ canvas {
 }
 
 .ctrl-container img {
-    /* height: 100%; */
     width: 100%;
 }
 
@@ -245,7 +206,6 @@ canvas {
     grid-template-columns: repeat(5, minmax(30px, 50px));
     grid-template-rows: 1fr 1fr ;
     gap: 15px 30px;
-    /* justify-items: center; */
     text-align: center;
     background-color: #19a59f;
     border-radius:15px;
@@ -254,7 +214,6 @@ canvas {
 
 .select-btn {
     grid-column: span 3;
-    /* justify-items: unset; */
 }
 
 /* Handle */
@@ -318,7 +277,6 @@ canvas {
         height: 90vh;
     }
     .font-btns {
-        /* width:200px; */
         gap: 1px
     }
     .ctrl-container .icon {
@@ -335,23 +293,18 @@ canvas {
         height: 100vh;
         flex-direction: column;
         border-inline-start: 1px solid rgb(41, 39, 39);
-        /* background-color: #fff; */
         background-color: rgb(0 0 0 / 60%);
         width: 300px;
         transform: translateX(100%);
         transition: transform .6s;
-        /* transition-delay:0s; */
         z-index: 2;
     }
     .btn-menu {
         display: inline-block;
         margin: 20px;
         cursor: pointer;
-        /* border-radius: 9px; */
         background: none;
         border: none;
-        /* padding: 0.3em 0.6em; */
-        /* font-size: 3em; */
     }
 
     body.menu-open .main-nav {
@@ -411,7 +364,6 @@ canvas {
         height: 40px;
     }
     .font-btns {
-        /* width:200px; */
         gap: 20px
     }
     ul {
