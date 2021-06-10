@@ -89,3 +89,8 @@ function onSwitchLines() {
 function onDeleteLine() {
     deleteLine()
 }
+
+function onClickGallery() {
+    document.querySelector('.meme-page').style = 'none'
+    document.querySelector('.main-container').style = 'block'    
+}

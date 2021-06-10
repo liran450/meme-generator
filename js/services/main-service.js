@@ -57,3 +57,8 @@ function toggleMenu() {
     var elBody = document.querySelector('body');
     elBody.classList.toggle('menu-open');
 }
+
+function onClickGallery() {
+    document.querySelector('.meme-page').style = 'none'
+    document.querySelector('.main-container').style = 'block'    
+}
