@@ -58,6 +58,7 @@ function onDrawText(elInput) {
     // var size = gMeme.lines[gMeme.selectedLineIdx].size
     drawImg(gCurrImg)
     // drawText(elInput.value, posX, posY, size)
+    if (gMeme.lines.length === 0) createNewLine()
     gMeme.lines[gMeme.selectedLineIdx].txt = elInput.value
     renderLines()
 }
@@ -94,3 +95,4 @@ function onClickGallery() {
     document.querySelector('.meme-page').style = 'none'
     document.querySelector('.main-container').style = 'block'    
 }
+

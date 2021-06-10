@@ -25,6 +25,7 @@ function updateSelectedImg(imgId) {
 }
 
 function drawText(text, x, y, size, color, align) {
+    if (gMeme.lines.length === 0) createNewLine()
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.strokeStyle = 'black'
@@ -60,12 +61,12 @@ function changeRowHeight(height) {
 
 function addLine() {
     var y = gCanvas.height - 100
-    // var txt = ''
     gLineId++;
     if (gLineId >= 2) y = gCanvas.height / 2
+    if (gMeme.lines.length === 0) selectedLineIdx = 0
+    else gMeme.selectedLineIdx++
     // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     // drawImg(gCurrImg)
-    gMeme.selectedLineIdx++
     gMeme.lines.push({
         id: gLineId,
         txt: 'I never eat Falafel',
@@ -78,6 +79,17 @@ function addLine() {
     renderLines()
 }
 
+function createNewLine() {
+    gMeme.lines.push({
+        id: ++gLineId,
+        txt: 'I never eat Falafel',
+        size: 40,
+        align: 'left',
+        color: 'red',
+        font: 'Impact',
+        pos: { x: 200, y: 100 }
+    })
+}
 
 // if (gMeme.lines[gMeme.selectedLineIdx].isSelected) lineSquare()
 
@@ -104,6 +116,7 @@ function changeTextAlign(btnClass) {
 }
 
 function switchLines() {
+    if (gMeme.lines.length === 0) return
     var linesCount = gMeme.lines.length
     var prevLineIdx = gMeme.selectedLineIdx
     if (gMeme.selectedLineIdx < linesCount - 1) gMeme.selectedLineIdx += 1
@@ -134,13 +147,13 @@ function lineSquare() {
 }
 
 function deleteLine() {
-    if (gMeme.lines.length === 1) return
+    // if (gMeme.lines.length === 1) return
     var prevLineIdx = gMeme.selectedLineIdx
     var idx = gMeme.lines.findIndex((line) => {
         return line.isSelected
     })
     gMeme.lines.splice(idx, 1)
-    gMeme.selectedLineIdx = prevLineIdx -1
+    if (gMeme.selectedLineIdx !== 0) gMeme.selectedLineIdx -= 1
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     drawImg(gCurrImg)
     renderLines()
