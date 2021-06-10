@@ -19,14 +19,32 @@ var gImgs = [
     {id: 16, url: 'img/16.jpg', keywords: ['happy']},
     {id: 17, url: 'img/17.jpg', keywords: ['happy']},
     {id: 18, url: 'img/18.jpg', keywords: ['happy']},
-    {id: 19, url: 'img/19.jpg', keywords: ['happy']}
+    {id: 19, url: 'img/19.jpg', keywords: ['happy']},
+    {id: 20, url: 'img/20.jpg', keywords: ['happy']},
+    {id: 21, url: 'img/21.jpg', keywords: ['happy']},
+    {id: 22, url: 'img/22.jpg', keywords: ['happy']},
+    {id: 23, url: 'img/23.jpg', keywords: ['happy']},
+    {id: 24, url: 'img/24.jpg', keywords: ['happy']},
+    {id: 25, url: 'img/25.jpg', keywords: ['happy']},
+    {id: 26, url: 'img/26.jpg', keywords: ['happy']},
+    {id: 27, url: 'img/27.jpg', keywords: ['happy']},
+    {id: 28, url: 'img/28.jpg', keywords: ['happy']},
+    {id: 29, url: 'img/29.jpg', keywords: ['happy']},
+    {id: 30, url: 'img/30.jpg', keywords: ['happy']},
+    {id: 31, url: 'img/31.jpg', keywords: ['happy']},
+    {id: 32, url: 'img/32.jpg', keywords: ['happy']},
+    {id: 33, url: 'img/33.jpg', keywords: ['happy']},
+    {id: 34, url: 'img/34.jpg', keywords: ['happy']},
+    {id: 35, url: 'img/35.jpg', keywords: ['happy']},
+    {id: 36, url: 'img/36.jpg', keywords: ['happy']},
+    {id: 37, url: 'img/37.jpg', keywords: ['happy']},
+    {id: 38, url: 'img/38.jpg', keywords: ['happy']},
+    {id: 39, url: 'img/39.jpg', keywords: ['happy']},
+    {id: 40, url: 'img/40.jpg', keywords: ['happy']},
+    {id: 41, url: 'img/41.jpg', keywords: ['happy']},
+    {id: 42, url: 'img/42.jpg', keywords: ['happy']},
+    {id: 43, url: 'img/43.jpg', keywords: ['happy']},
 ];
-
-// function resizeCanvas() {
-//     var elContainer = document.querySelector('.canvas-container')
-//     gCanvas.width = elContainer.offsetWidth
-//     gCanvas.height = elContainer.offsetHeight
-// }
 
 function showMemePage() {
     var elPageContainer = document.querySelector('.main-container')
@@ -35,3 +53,7 @@ function showMemePage() {
     elMemePage.style.display = 'block'
 }
 
+function toggleMenu() {
+    var elBody = document.querySelector('body');
+    elBody.classList.toggle('menu-open');
+}

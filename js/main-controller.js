@@ -34,8 +34,8 @@ function drawImg(img) {
     gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
     // gCanvas.width = img.naturalHeight * gCanvas.height / img.naturalWidth
     // gCanvas.width *= 0.8
-    elCanvasContainer.style.width = gCanvas.width + 'px'
-    elCanvasContainer.style.height = gCanvas.height + 'px'
+    // elCanvasContainer.style.width = gCanvas.width + 'px'
+    // elCanvasContainer.style.height = gCanvas.height + 'px'
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
 }
 

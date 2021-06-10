@@ -88,8 +88,8 @@ function renderLines() {
         var align = line.align
         drawText(currText, posX, posY, size, color, align)
     })
-    // LineSquare()
 }
+// if (gMeme.lines[gMeme.selectedLineIdx].isSelected) lineSquare()
 
 function changeColor(fillColor) {
     gMeme.lines[gMeme.selectedLineIdx].color = fillColor
@@ -115,23 +115,23 @@ function changeTextAlign(btnClass) {
 
 function switchLines() {
     var linesCount = gMeme.lines.length
-    console.log('linesCount', linesCount);
+    var prevLineIdx = gMeme.selectedLineIdx
     if (gMeme.selectedLineIdx < linesCount - 1) gMeme.selectedLineIdx += 1
     else gMeme.selectedLineIdx = 0
-    console.log('Selected Line:', gMeme.selectedLineIdx);
-    LineSquare() 
+    gMeme.lines[gMeme.selectedLineIdx].isSelected = true
+    gMeme.lines[prevLineIdx].isSelected = false
+    lineSquare() 
     renderLines()
 }
 
-function LineSquare() {
+function lineSquare() {
+    if (!gMeme.lines[gMeme.selectedLineIdx].isSelected) return
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
     drawImg(gCurrImg)
     var linePosX = gMeme.lines[gMeme.selectedLineIdx].pos.x
     var linePosY = gMeme.lines[gMeme.selectedLineIdx].pos.y
-    var lineHeight = gMeme.lines[gMeme.selectedLineIdx].size
-    // debugger
+    // var lineHeight = gMeme.lines[gMeme.selectedLineIdx].size
     var lineWidth = gMeme.lines[gMeme.selectedLineIdx].width
-    // console.log(lineWidth);
     gCtx.beginPath()
     gCtx.lineWidth = 1
     gCtx.moveTo(linePosX - 40, linePosY - 40)
