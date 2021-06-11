@@ -1,9 +1,11 @@
-// var gLineId = 1;
 var gLineId = 0
+var gStartPos;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
+    clickedLineIdx: null,
     lines: [
         {
             id: 0,
@@ -13,8 +15,9 @@ var gMeme = {
             color: 'red',
             font: 'Impact',
             pos: { x: 200, y: 100 },
+            width: 80.043,
             isSelected: false,
-            width: null
+            isDrag: false
         },
     ]
 }
@@ -74,7 +77,9 @@ function addLine() {
         align: 'left',
         color: 'red',
         font: 'Impact',
-        pos: { x: 200, y }
+        pos: { x: 200, y },
+        isDrag: false,
+        width: 80.043
     })
     renderLines()
 }
@@ -87,7 +92,9 @@ function createNewLine() {
         align: 'left',
         color: 'red',
         font: 'Impact',
-        pos: { x: 200, y: 100 }
+        pos: { x: 200, y: 100 },
+        isDrag: false,
+        width: 80.043
     })
 }
 
@@ -121,22 +128,33 @@ function switchLines() {
     var prevLineIdx = gMeme.selectedLineIdx
     if (gMeme.selectedLineIdx < linesCount - 1) gMeme.selectedLineIdx += 1
     else gMeme.selectedLineIdx = 0
+
+    var textWidth = measureSelectedTextWidth()
+    console.log(textWidth);
+    gMeme.lines[gMeme.selectedLineIdx].width = textWidth
     gMeme.lines[gMeme.selectedLineIdx].isSelected = true
     gMeme.lines[prevLineIdx].isSelected = false
-    lineSquare() 
+    lineSquare()
     renderLines()
+}
+
+function measureSelectedTextWidth() {
+    return gCtx.measureText(gMeme.lines[gMeme.selectedLineIdx].txt).width
+}
+
+function measureClickedTextWidth() {
+    return gCtx.measureText(gMeme.lines[gMeme.clickedLineIdx].txt).width
 }
 
 function lineSquare() {
     if (!gMeme.lines[gMeme.selectedLineIdx].isSelected) return
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
+    renderCanvas()
     var linePosX = gMeme.lines[gMeme.selectedLineIdx].pos.x
     var linePosY = gMeme.lines[gMeme.selectedLineIdx].pos.y
     // var lineHeight = gMeme.lines[gMeme.selectedLineIdx].size
     var lineWidth = gMeme.lines[gMeme.selectedLineIdx].width
     gCtx.beginPath()
-    gCtx.lineWidth = 1
+    // gCtx.lineWidth = 1
     gCtx.moveTo(linePosX - 40, linePosY - 40)
     gCtx.lineTo(linePosX + lineWidth + 40, linePosY - 40)
     gCtx.lineTo(linePosX + lineWidth + 40, linePosY + 20)
@@ -148,7 +166,7 @@ function lineSquare() {
 
 function deleteLine() {
     // if (gMeme.lines.length === 1) return
-    var prevLineIdx = gMeme.selectedLineIdx
+    // var prevLineIdx = gMeme.selectedLineIdx
     var idx = gMeme.lines.findIndex((line) => {
         return line.isSelected
     })
@@ -158,3 +176,7 @@ function deleteLine() {
     drawImg(gCurrImg)
     renderLines()
 }
+
+// function dragAndDrop() {
+
+// }
