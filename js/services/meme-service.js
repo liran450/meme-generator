@@ -25,6 +25,10 @@ var gMeme = {
     ]
 }
 
+function drawImg(img) {
+    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+}
 
 function updateSelectedImg(imgId) {
     gMeme.selectedImgId = imgId
@@ -37,7 +41,6 @@ function drawText(text, x, y, size, color, align) {
     gCtx.strokeStyle = 'black'
     gCtx.fillStyle = color
     gCtx.font = `${size}px ${gMeme.font}`
-    // gCtx.fillText(text, x, y)
     gCtx.textAlign = align
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
@@ -53,15 +56,13 @@ function changeTextSize(size) {
 
     gMeme.lines[gMeme.selectedLineIdx].size += size
     // console.log(gMeme.lines[gMeme.selectedLineIdx].size);
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
+    renderCanvas()
     renderLines()
 }
 
 function changeRowHeight(height) {
     gMeme.lines[gMeme.selectedLineIdx].pos.y += height
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
+    renderCanvas()
     renderLines()
 }
 
@@ -71,8 +72,6 @@ function addLine() {
     if (gLineId >= 2) y = gCanvas.height / 2
     if (gMeme.lines.length === 0) selectedLineIdx = 0
     else gMeme.selectedLineIdx++
-    // gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    // drawImg(gCurrImg)
     gMeme.lines.push({
         id: gLineId,
         txt: 'I never eat Falafel',
@@ -105,8 +104,7 @@ function createNewLine() {
 
 function changeColor(fillColor) {
     gMeme.lines[gMeme.selectedLineIdx].color = fillColor
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
+    renderCanvas()
     renderLines()
 }
 
@@ -119,9 +117,7 @@ function changeTextAlign(btnClass) {
     else {
         gMeme.lines[gMeme.selectedLineIdx].align = 'left'
     }
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
-
+    renderCanvas()
     renderLines()
 }
 
@@ -175,8 +171,7 @@ function deleteLine() {
     })
     gMeme.lines.splice(idx, 1)
     if (gMeme.selectedLineIdx !== 0) gMeme.selectedLineIdx -= 1
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    drawImg(gCurrImg)
+    renderCanvas()
     renderLines()
 }
 
@@ -221,3 +216,59 @@ function renderSavedMemes() {
     document.querySelector('.saved-memes').innerHTML = strHTML
 }
 
+function getEvPos(ev) {
+    var OffsetXDiff = gCanvas.width / gCurrCanvasSize.width
+    var OffsetYDiff = gCanvas.height / gCurrCanvasSize.height
+    var pos = {
+        x: ev.offsetX * OffsetXDiff,
+        y: ev.offsetY * OffsetYDiff
+    }
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: (ev.pageX - ev.target.offsetLeft - ev.target.clientLeft) * OffsetXDiff,
+            y: (ev.pageY - ev.target.offsetTop - ev.target.clientTop) * OffsetYDiff
+        }
+        console.log('click location', pos);
+    }
+    return pos
+}
+
+function getClickedLine() {
+    return gMeme.lines[gMeme.clickedLineIdx]
+}
+
+function canvasClicked(ev) {
+    //insert line width BEFORE switching lines (maybe in the put the func object)
+    // find out if clicked inside of star chart
+    var pos = getEvPos(ev)
+    const clickedLineIdx = gMeme.lines.findIndex(line =>
+        pos.x > line.pos.x &&
+        pos.x < line.pos.x + line.width &&
+        pos.y < line.pos.y &&
+        pos.y > line.pos.y - 40
+    )
+    gMeme.clickedLineIdx = clickedLineIdx
+    if (clickedLineIdx !== -1) {
+        gMeme.selectedLineIdx = clickedLineIdx
+        var textWidth = measureSelectedTextWidth()
+        gMeme.lines[gMeme.clickedLineIdx].width = textWidth
+    }
+    return clickedLineIdx
+}
+
+function setLineDrag(isDrag) {
+    if (gMeme.clickedLineIdx === -1) return
+    gMeme.lines[gMeme.clickedLineIdx].isDrag = isDrag
+}
+
+function setLineSelected(isSelected) {
+    if (gMeme.clickedLineIdx === -1) return
+    gMeme.lines[gMeme.clickedLineIdx].isSelected = isSelected
+}
+
+function moveLine(dx, dy) {
+    gMeme.lines[gMeme.clickedLineIdx].pos.x += dx
+    gMeme.lines[gMeme.clickedLineIdx].pos.y += dy
+}

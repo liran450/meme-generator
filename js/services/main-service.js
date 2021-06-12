@@ -54,20 +54,14 @@ var gKeywords = createKeywordsArray()
 function createKeywordsArray() {
     var keyWords = []
     gImgs.forEach(img => {
-        // for (var i = 0; i < img.keywords.length; i++) {
-
-        // }
         img.keywords.forEach(keyword => {
             keyWords.push(keyword)
         })
     });
     var keyWordObjects = keyWords.reduce(function (acc, keyword) {
-        // console.log('Called with ', acc, keyword);
         if (!acc[keyword]) acc[keyword] = 0;
-        // acc[vote]++
         return acc;
     }, {})
-    // console.log(keyWords)
     return keyWordObjects
 }
 
@@ -88,18 +82,12 @@ function sortKeysByPopularity() {
     return keywords
 }
 
-
-
 function showMemePage() {
     var elPageContainer = document.querySelector('.main-gallery')
     var elMemePage = document.querySelector('.meme-page')
     elPageContainer.style.display = 'none';
     elMemePage.style.display = 'block'
     getCurrCanvasSize()
-    // var elCanvasHeight = document.querySelector('.canvas').clientHeight
-    // var elCanvasWidth = document.querySelector('.canvas').clientWidth
-    // gCurrCanvasSize.height = elCanvasHeight
-    // gCurrCanvasSize.width = elCanvasWidth
 }
 
 function toggleMenu() {
@@ -110,8 +98,6 @@ function toggleMenu() {
 
 
 function getImgs(value) {
-    // var startIdx = gPageIdx * PAGE_SIZE;
-
     var regex = new RegExp(value, 'i')
     // var rgx = /ab*\dc/ // Cannot use this syntax while creating dynamic regex
 

@@ -64,23 +64,8 @@ function onClickImg(img, imgId) {
     drawText(text)
 }
 
-function drawImg(img) {
-    // var elCanvasContainer = document.querySelector('.canvas-container')
-    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
-    // gCanvas.width = img.naturalHeight * gCanvas.height / img.naturalWidth
-    // gCanvas.width *= 0.8
-    // elCanvasContainer.style.width = gCanvas.width + 'px'
-    // elCanvasContainer.style.height = gCanvas.height + 'px'
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-}
-
 function onDrawText(elInput) {
-    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
-    // var posX = gMeme.lines[gMeme.selectedLineIdx].pos.x
-    // var posY = gMeme.lines[gMeme.selectedLineIdx].pos.y
-    // var size = gMeme.lines[gMeme.selectedLineIdx].size
-    drawImg(gCurrImg)
-    // drawText(elInput.value, posX, posY, size)
+    renderCanvas()
     if (gMeme.lines.length === 0) createNewLine()
     gMeme.lines[gMeme.selectedLineIdx].txt = elInput.value
     renderLines()
@@ -116,7 +101,6 @@ function onDeleteLine() {
 
 function onClickGallery() {
     document.querySelector('.meme-page').style = 'none'
-    // document.querySelector('.main-container').style = 'block'
     document.querySelector('.main-gallery').style = 'block'
 }
 
@@ -181,64 +165,6 @@ function onUp() {
     setLineSelected(false)
     var elContainer = document.querySelector('.canvas-container');
     elContainer.style.cursor = 'grab'
-}
-
-function getEvPos(ev) {
-    var OffsetXDiff = gCanvas.width / gCurrCanvasSize.width
-    var OffsetYDiff = gCanvas.height / gCurrCanvasSize.height
-    var pos = {
-        x: ev.offsetX * OffsetXDiff,
-        y: ev.offsetY * OffsetYDiff
-    }
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: (ev.pageX - ev.target.offsetLeft - ev.target.clientLeft) * OffsetXDiff,
-            y: (ev.pageY - ev.target.offsetTop - ev.target.clientTop) * OffsetYDiff
-        }
-        console.log('click location', pos);
-    }
-    return pos
-}
-
-function getClickedLine() {
-    return gMeme.lines[gMeme.clickedLineIdx]
-}
-
-function canvasClicked(ev) {
-    //insert line width BEFORE switching lines (maybe in the put the func object)
-
-    // find out if clicked inside of star chart
-    var pos = getEvPos(ev)
-    const clickedLineIdx = gMeme.lines.findIndex(line =>
-        pos.x > line.pos.x &&
-        pos.x < line.pos.x + line.width &&
-        pos.y < line.pos.y &&
-        pos.y > line.pos.y - 40
-    )
-    gMeme.clickedLineIdx = clickedLineIdx
-    if (clickedLineIdx !== -1) {
-        gMeme.selectedLineIdx = clickedLineIdx
-        var textWidth = measureSelectedTextWidth()
-        gMeme.lines[gMeme.clickedLineIdx].width = textWidth
-    }
-    return clickedLineIdx
-}
-
-function setLineDrag(isDrag) {
-    if (gMeme.clickedLineIdx === -1) return
-    gMeme.lines[gMeme.clickedLineIdx].isDrag = isDrag
-}
-
-function setLineSelected(isSelected) {
-    if (gMeme.clickedLineIdx === -1) return
-    gMeme.lines[gMeme.clickedLineIdx].isSelected = isSelected
-}
-
-function moveLine(dx, dy) {
-    gMeme.lines[gMeme.clickedLineIdx].pos.x += dx
-    gMeme.lines[gMeme.clickedLineIdx].pos.y += dy
 }
 
 function onDwnlCanvas(elLink) {
