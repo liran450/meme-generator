@@ -9,6 +9,7 @@ function onInit() {
     renderGallery()
     addListeners()
     renderSavedMemes()
+    renderKeywords()
 }
 
 // window.addEventListener('resize',resizeCanvas)
@@ -20,8 +21,9 @@ function renderCanvas() {
 }
 
 function renderGallery() {
+    var imgs = gFilteredImgs
     var strHTMLs = ``
-    gImgs.forEach((img) =>
+    imgs.forEach((img) =>
         strHTMLs += `<img src="${img.url}" onclick="onClickImg(this, '${img.id}')">`
     )
     document.querySelector('.img-container').innerHTML = strHTMLs
@@ -38,6 +40,19 @@ function renderLines() {
         var align = line.align
         drawText(currText, posX, posY, size, color, align)
     })
+}
+
+function renderKeywords() {
+    var keyWords = sortKeysByPopularity()
+    var strHtmls = ``
+    // keyWords.forEach(keyword => {
+    //     strHtmls += `<span onclick="onClickKeyword(this)">${keyword[0]}</span> `
+    // });
+
+    for (let i = 0; i < 4 ; i++){
+        strHtmls += `<span onclick="onClickKeyword(this)">${keyWords[i][0]}</span> `
+    }
+    document.querySelector('.keyword-search').innerHTML = strHtmls
 }
 
 function onClickImg(img, imgId) {
@@ -236,4 +251,15 @@ function onToggleMemesModal() {
 
 function onSaveMeme(elLink) {
     saveMemes(elLink)
+}
+
+function onSearchImg(value) {
+    getImgs(value)
+    renderGallery()
+}
+
+function onClickKeyword(elKeyword) {
+    addClickToKeyword(elKeyword)
+    getImgs(elKeyword.innerText)
+    renderGallery()
 }

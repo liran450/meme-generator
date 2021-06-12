@@ -201,8 +201,6 @@ function saveMemes(canvas) {
     const data = gCanvas.toDataURL()
     // canvas.href = data
     console.log(data);
-    // var savedMemes = loadFromStorage('savedMemes')
-    // if (!savedMemes || savedMemes.length=== 0) return
     gSavedMemes.push(data)
     saveToStorage('savedMemes', gSavedMemes)
     renderSavedMemes()
@@ -222,3 +220,4 @@ function renderSavedMemes() {
     )
     document.querySelector('.saved-memes').innerHTML = strHTML
 }
+

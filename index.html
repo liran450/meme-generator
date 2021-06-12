@@ -32,13 +32,16 @@
             </div>
         </section>
         <div class="main-gallery">
-            <header class=gallery-header>
+            <header class="gallery-header">
                 <div class="search-container">
                     <form>
-                        <input type="text" placeholder="Search">
+                        <input class="search-bar" type="text" placeholder="Search" oninput="onSearchImg(this.value)">
                     </form>
                 </div>
                 <div class="search-words-container"></div>
+                <div class="keyword-search-container">
+                    <div class="keyword-search"></div>
+                </div>
             </header>
             <section class="gallery-container">
                 <div class="img-container"></div>
@@ -82,11 +85,18 @@
                     <input type="color" value="#e66465" onchange="onChangeColor(this)">
                     <!-- </div> -->
                 </div>
-                <div class="share-btns flex align-center justify-content">
+                <div class="share-btns ">
                     <button class="share">Share</button>
                     <button class="save"><a href="#" onclick="onSaveMeme(this)">Save</a></button>
                     <button class="download"><a href="#" onclick="onDwnlCanvas(this)"
                             download="file-name">Download</a></button>
+                    <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+                    <br>
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="btn" type="submit">Publish</button>
+                        <div class="share-container"></div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -95,6 +105,7 @@
 
     <script src="js/services/utils.js"></script>
     <script src="js/services/storage-service.js"></script>
+    <script src="js/services/download-upload-service.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/main-service.js"></script>
     <script src="js/main-controller.js"></script>
