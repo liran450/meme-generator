@@ -50,7 +50,7 @@ function renderKeywords() {
     // });
 
     for (let i = 0; i < 4 ; i++){
-        strHtmls += `<span onclick="onClickKeyword(this)">${keyWords[i][0]}</span> `
+        strHtmls += `<span class="keywords" onclick="onClickKeyword(this)">${keyWords[i][0]}</span> `
     }
     document.querySelector('.keyword-search').innerHTML = strHtmls
 }

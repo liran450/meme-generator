@@ -389,7 +389,9 @@ canvas {
     font-size:20px;
 }
 
-
+.keywords {
+    cursor: pointer;
+}
 
 /* MOBILE Mnu ONLY */
 
