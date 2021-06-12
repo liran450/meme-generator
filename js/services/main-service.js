@@ -47,10 +47,15 @@ var gImgs = [
 ];
 
 function showMemePage() {
-    var elPageContainer = document.querySelector('.main-container')
+    var elPageContainer = document.querySelector('.main-gallery')
     var elMemePage = document.querySelector('.meme-page')   
     elPageContainer.style.display = 'none';
     elMemePage.style.display = 'block'
+    getCurrCanvasSize()
+    // var elCanvasHeight = document.querySelector('.canvas').clientHeight
+    // var elCanvasWidth = document.querySelector('.canvas').clientWidth
+    // gCurrCanvasSize.height = elCanvasHeight
+    // gCurrCanvasSize.width = elCanvasWidth
 }
 
 function toggleMenu() {

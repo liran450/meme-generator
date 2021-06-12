@@ -6,6 +6,7 @@ body {
     margin: 0 auto;
     overflow: hidden;
     background-color: #22252c;
+    position: relative;
 }
 
 .img-container img {
@@ -64,6 +65,7 @@ body.menu-open .main-screen {
 }
 
 .main-container {
+    position: relative;
     background-color: #383b42;
     max-width: 1258px;
     margin: 0 auto;
@@ -205,6 +207,35 @@ canvas {
     grid-column: span 3;
 }
 
+/* memes-modal */
+
+.saved-memes-container {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #6c6f77e1;
+    padding: 20px 10px;
+    border: 3px solid white;
+    border-radius: 20px;
+    visibility: visible;
+    transition: opacity 0.5s, visibility 0.5s;
+    box-shadow: 0 10px 10px #000000ab;
+    /* pointer-events: auto; */
+    
+}
+
+.saved-memes-container.hide {
+    visibility: hidden;
+    opacity: 0;
+    /* pointer-events: none; */
+
+}
+
+.saved-memes-container h2 {
+    color:white;
+}
 /* Handle */
 
 ::-webkit-scrollbar-thumb {

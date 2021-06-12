@@ -1,6 +1,9 @@
 var gLineId = 0
 var gStartPos;
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+var gSavedMemes = loadSavedMemes() || []
+
+var gCurrCanvasSize;
 
 var gMeme = {
     selectedImgId: 5,
@@ -180,3 +183,42 @@ function deleteLine() {
 // function dragAndDrop() {
 
 // }
+
+function getCurrCanvasSize() {
+    var elCanvasWidth = document.querySelector('.canvas').clientWidth
+    var elCanvasHeight = document.querySelector('.canvas').clientHeight
+    // console.log('canvas height:',elCanvasHeight , 'canvas width:',elCanvasWidth );
+    return gCurrCanvasSize = { width: elCanvasWidth, height: elCanvasHeight }
+}
+
+function downloadCanvas(canvas) {
+    const data = gCanvas.toDataURL()
+    canvas.href = data
+    canvas.download = 'Canvas Img'
+}
+
+function saveMemes(canvas) {
+    const data = gCanvas.toDataURL()
+    // canvas.href = data
+    console.log(data);
+    // var savedMemes = loadFromStorage('savedMemes')
+    // if (!savedMemes || savedMemes.length=== 0) return
+    gSavedMemes.push(data)
+    saveToStorage('savedMemes', gSavedMemes)
+    renderSavedMemes()
+}
+
+function loadSavedMemes() {
+    var savedMemes = loadFromStorage('savedMemes')
+    if (!savedMemes || savedMemes.length === 0) return []
+    else return savedMemes
+}
+
+function renderSavedMemes() {
+    if (!gSavedMemes || gSavedMemes.length === 0) return
+    var strHTML = ``
+    gSavedMemes.forEach(meme =>
+        strHTML += `<img class="saved-meme-img" src="${meme}">`
+    )
+    document.querySelector('.saved-memes').innerHTML = strHTML
+}

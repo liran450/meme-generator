@@ -8,6 +8,7 @@ function onInit() {
     gCtx = gCanvas.getContext('2d');
     renderGallery()
     addListeners()
+    renderSavedMemes()
 }
 
 // window.addEventListener('resize',resizeCanvas)
@@ -27,6 +28,7 @@ function renderGallery() {
 }
 
 function renderLines() {
+    gCanvas = document.querySelector('canvas');
     gMeme.lines.forEach((line) => {
         var currText = line.txt
         var posX = line.pos.x
@@ -39,16 +41,16 @@ function renderLines() {
 }
 
 function onClickImg(img, imgId) {
-    showMemePage()
     gCurrImg = img
     drawImg(gCurrImg)
+    showMemePage()
     updateSelectedImg(imgId)
     var text = gMeme.lines[0].txt
     drawText(text)
 }
 
 function drawImg(img) {
-    var elCanvasContainer = document.querySelector('.canvas-container')
+    // var elCanvasContainer = document.querySelector('.canvas-container')
     gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
     // gCanvas.width = img.naturalHeight * gCanvas.height / img.naturalWidth
     // gCanvas.width *= 0.8
@@ -99,13 +101,18 @@ function onDeleteLine() {
 
 function onClickGallery() {
     document.querySelector('.meme-page').style = 'none'
-    document.querySelector('.main-container').style = 'block'
+    // document.querySelector('.main-container').style = 'block'
+    document.querySelector('.main-gallery').style = 'block'
 }
 
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
+    window.addEventListener('resize', () => {
+        getCurrCanvasSize()
+    })
 }
+
 
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
@@ -162,18 +169,20 @@ function onUp() {
 }
 
 function getEvPos(ev) {
+    var OffsetXDiff = gCanvas.width / gCurrCanvasSize.width
+    var OffsetYDiff = gCanvas.height / gCurrCanvasSize.height
     var pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
+        x: ev.offsetX * OffsetXDiff,
+        y: ev.offsetY * OffsetYDiff
     }
-    console.log('click location', pos);
     if (gTouchEvs.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
         pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+            x: (ev.pageX - ev.target.offsetLeft - ev.target.clientLeft) * OffsetXDiff,
+            y: (ev.pageY - ev.target.offsetTop - ev.target.clientTop) * OffsetYDiff
         }
+        console.log('click location', pos);
     }
     return pos
 }
@@ -193,10 +202,12 @@ function canvasClicked(ev) {
         pos.y < line.pos.y &&
         pos.y > line.pos.y - 40
     )
-    if (clickedLineIdx !== -1) gMeme.selectedLineIdx = clickedLineIdx
     gMeme.clickedLineIdx = clickedLineIdx
-    var textWidth = measureClickedTextWidth()
-    gMeme.lines[gMeme.clickedLineIdx].width = textWidth
+    if (clickedLineIdx !== -1) {
+        gMeme.selectedLineIdx = clickedLineIdx
+        var textWidth = measureSelectedTextWidth()
+        gMeme.lines[gMeme.clickedLineIdx].width = textWidth
+    }
     return clickedLineIdx
 }
 
@@ -213,4 +224,16 @@ function setLineSelected(isSelected) {
 function moveLine(dx, dy) {
     gMeme.lines[gMeme.clickedLineIdx].pos.x += dx
     gMeme.lines[gMeme.clickedLineIdx].pos.y += dy
+}
+
+function onDwnlCanvas(elLink) {
+    downloadCanvas(elLink)
+}
+
+function onToggleMemesModal() {
+    document.querySelector('.saved-memes-container').classList.toggle('hide');
+}
+
+function onSaveMeme(elLink) {
+    saveMemes(elLink)
 }
