@@ -223,12 +223,13 @@ canvas {
     transition: opacity 0.5s, visibility 0.5s;
     box-shadow: 0 10px 10px #000000ab;
     /* pointer-events: auto; */
-    
 }
 
 .saved-memes-container.hide {
+    /* display: none; */
     visibility: hidden;
     opacity: 0;
+    /* z-index: -1; */
     /* pointer-events: none; */
 
 }
