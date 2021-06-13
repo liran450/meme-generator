@@ -26,7 +26,7 @@ function renderGallery() {
     var strHTMLs = `<div class="upload-img-container"><label><h2>choose your own image</h2><input type="file" class="file-input btn" name="image"
     onchange="onImgInput(event)"/></label></div>`
     imgs.forEach((img) =>
-        strHTMLs += `<img src="${img.url}" onclick="onClickImg(this, '${img.id}')">`
+        strHTMLs += `<img class="gallery-meme" src="${img.url}" onclick="onClickImg(this, '${img.id}')">`
     )
     document.querySelector('.img-container').innerHTML = strHTMLs
 }
@@ -45,7 +45,8 @@ function renderLines() {
         var size = line.size
         var color = line.color
         var align = line.align
-        drawText(currText, posX, posY, size, color, align)
+        var stroke = line.stroke.color
+        drawText(currText, posX, posY, size, color, align, stroke)
     })
 }
 
@@ -204,4 +205,18 @@ function onClickKeyword(elKeyword) {
     addClickToKeyword(elKeyword)
     getImgs(elKeyword.innerText)
     renderGallery()
+}
+
+function onAddStroke() {
+    // gMeme.lines[gMeme.selectedLineIdx].stroke = black
+    // !gMeme.lines[gMeme.selectedLineIdx].stroke.isStroke
+    if (!gMeme.lines[gMeme.selectedLineIdx].stroke.isStroke) {
+        gMeme.lines[gMeme.selectedLineIdx].stroke.color = 'black'
+        gMeme.lines[gMeme.selectedLineIdx].stroke.isStroke = true
+    } else  {
+        gMeme.lines[gMeme.selectedLineIdx].stroke.color = 'white'
+        gMeme.lines[gMeme.selectedLineIdx].stroke.isStroke = false
+    }
+    renderCanvas()
+    renderLines()
 }

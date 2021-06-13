@@ -17,7 +17,8 @@ var gMeme = {
             pos: { x: 200, y: 100 },
             width: 80.043,
             isSelected: false,
-            isDrag: false
+            isDrag: false,
+            stroke: {isStroke: false, color: 'white'}
         },
     ]
 }
@@ -26,11 +27,11 @@ function updateSelectedImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function drawText(text, x, y, size, color, align) {
+function drawText(text, x, y, size, color, align, stroke) {
     if (gMeme.lines.length === 0) createNewLine()
     gCtx.beginPath()
     gCtx.lineWidth = 1
-    gCtx.strokeStyle = 'black'
+    gCtx.strokeStyle = stroke
     gCtx.fillStyle = color
     gCtx.font = `${size}px ${gMeme.font}`
     gCtx.textAlign = align
@@ -73,7 +74,8 @@ function addLine() {
         font: 'Impact',
         pos: { x: 200, y },
         isDrag: false,
-        width: 80.043
+        width: 80.043,
+        stroke: {isStroke: false, color: 'white'}
     })
     renderLines()
 }
@@ -88,7 +90,8 @@ function createNewLine() {
         font: 'Impact',
         pos: { x: 200, y: 100 },
         isDrag: false,
-        width: 80.043
+        width: 80.043,
+        stroke: {isStroke: false, color: 'white'}
     })
 }
 
