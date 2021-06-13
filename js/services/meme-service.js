@@ -1,10 +1,7 @@
 var gLineId = 0
 var gStartPos;
-const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 var gSavedMemes = loadSavedMemes() || []
-
 var gCurrCanvasSize;
-
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
@@ -23,11 +20,6 @@ var gMeme = {
             isDrag: false
         },
     ]
-}
-
-function drawImg(img) {
-    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
 }
 
 function updateSelectedImg(imgId) {
@@ -205,15 +197,6 @@ function loadSavedMemes() {
     var savedMemes = loadFromStorage('savedMemes')
     if (!savedMemes || savedMemes.length === 0) return []
     else return savedMemes
-}
-
-function renderSavedMemes() {
-    if (!gSavedMemes || gSavedMemes.length === 0) return
-    var strHTML = ``
-    gSavedMemes.forEach(meme =>
-        strHTML += `<img class="saved-meme-img" src="${meme}">`
-    )
-    document.querySelector('.saved-memes').innerHTML = strHTML
 }
 
 function getEvPos(ev) {

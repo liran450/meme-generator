@@ -2,6 +2,7 @@
 var gCurrImg;
 var gCanvas;
 var gCtx;
+const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 function onInit() {
     gCanvas = document.querySelector('canvas');
@@ -29,6 +30,11 @@ function renderGallery() {
     document.querySelector('.img-container').innerHTML = strHTMLs
 }
 
+function drawImg(img) {
+    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
+    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+}
+
 function renderLines() {
     gCanvas = document.querySelector('canvas');
     gMeme.lines.forEach((line) => {
@@ -40,6 +46,17 @@ function renderLines() {
         var align = line.align
         drawText(currText, posX, posY, size, color, align)
     })
+}
+
+
+
+function renderSavedMemes() {
+    if (!gSavedMemes || gSavedMemes.length === 0) return
+    var strHTML = ``
+    gSavedMemes.forEach(meme =>
+        strHTML += `<img class="saved-meme-img" src="${meme}">`
+    )
+    document.querySelector('.saved-memes').innerHTML = strHTML
 }
 
 function renderKeywords() {
