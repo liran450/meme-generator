@@ -20,7 +20,10 @@
                     <li class="memes"><a class="second" href="#" onclick="onToggleMemesModal()">Memes</a></li>
                     <li class="about"><a class="second" href="#">About</a></li>
                 </ul>
-                <button class="btn-menu" onclick="toggleMenu()"><img src="icons/hamburger.png" alt=""></button>
+                <!-- <button class="btn-menu" onclick="toggleMenu()"><img src="icons/hamburger.png" alt=""></button> -->
+                <div class="btn-menu">
+                    <div class="burger" onclick="toggleMenu()"></div>
+                </div>
             </div>
         </header>
     </div>
@@ -56,7 +59,7 @@
             </div>
             <div class="ctrl-container">
                 <input class="meme-input" type="text" placeholder="Enter text" oninput="onDrawText(this)">
-                <div class="ctrl-btns flex align-center justify-content">
+                <div class="ctrl-btns">
                     <button class="switch icon" onclick=onSwitchLines()><img
                             src="icons/up-and-down-opposite-double-arrows-side-by-side.png"></button>
                     <button class="move-up icon" onclick="onChangeHeight(-15)"> <img src="icons/up-icon.png"></button>
@@ -86,15 +89,12 @@
                     <!-- </div> -->
                 </div>
                 <div class="share-btns ">
-                    <button class="share">Share</button>
                     <button class="save"><a href="#" onclick="onSaveMeme(this)">Save</a></button>
                     <button class="download"><a href="#" onclick="onDwnlCanvas(this)"
                             download="file-name">Download</a></button>
-                    <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
-                    <br>
                     <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                         <input name="img" id="imgData" type="hidden" />
-                        <button class="btn" type="submit">Publish</button>
+                        <button class="btn" type="submit">Share</button>
                         <div class="share-container"></div>
                     </form>
                 </div>

@@ -73,6 +73,8 @@ function putKeywordsInArray() {
     return sortedWords
 }
 
+// sortedWords.push({[key]: gKeywords[key]});
+
 function sortKeysByPopularity() {
     var keywords = putKeywordsInArray()
     keywords.sort(function (a, b) {

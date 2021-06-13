@@ -23,7 +23,8 @@ function renderCanvas() {
 
 function renderGallery() {
     var imgs = gFilteredImgs
-    var strHTMLs = ``
+    var strHTMLs = `<div class="upload-img-container"><label><h2>choose your own image</h2><input type="file" class="file-input btn" name="image"
+    onchange="onImgInput(event)"/></label></div>`
     imgs.forEach((img) =>
         strHTMLs += `<img src="${img.url}" onclick="onClickImg(this, '${img.id}')">`
     )
@@ -31,7 +32,7 @@ function renderGallery() {
 }
 
 function drawImg(img) {
-    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth
+    gCanvas.height = img.naturalHeight * gCanvas.width / img.naturalWidth 
     gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
 }
 
@@ -47,8 +48,6 @@ function renderLines() {
         drawText(currText, posX, posY, size, color, align)
     })
 }
-
-
 
 function renderSavedMemes() {
     if (!gSavedMemes || gSavedMemes.length === 0) return

@@ -7,7 +7,6 @@ body {
     overflow: hidden;
     background-color: #22252c;
     position: relative;
-    padding: 0 100px
 }
 
 .img-container img {
@@ -142,9 +141,33 @@ body.menu-open .main-screen {
     padding-left: 30px;
 }
 
-.img-container img {
+.img-container img, .upload-img-container {
     border-radius: 1em;
     cursor: pointer;
+}
+
+.upload-img-container {
+    background-color: #45484d;
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.upload-img-container h2 {
+    vertical-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-size: 1.7em;
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    color: white;
+}
+
+input[type="file"] {
+    display: none;
 }
 
 /* Scroll-bar */
@@ -171,8 +194,8 @@ body.menu-open .main-screen {
     gap: 20px;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 0 80px;
+    justify-content: space-evenly;
+    padding: 0 40px;
     height: auto;
     overflow: auto;
     overflow-x: hidden;
@@ -182,7 +205,7 @@ body.menu-open .main-screen {
 .ctrl-container {
     background-color: #383b42;
     padding: 15px 50px;
-    border-radius: 20px;
+    border-radius: 40px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -191,7 +214,7 @@ body.menu-open .main-screen {
 }
 
 canvas {
-    border-radius: 20px;
+    border-radius: 40px;
     border: 10px solid #383b42;
     width: 100%;
     min-width: 300px;
@@ -200,7 +223,7 @@ canvas {
 .ctrl-container .meme-input {
     width: 100%;
     height: 50px;
-    border-radius: 3em;
+    border-radius: 40px;
     border: none;
     font-size: 2em;
     padding-left: 30px;
@@ -211,18 +234,22 @@ canvas {
     width: 100%;
 }
 
-.ctrl-container .icon {
-    width: 40px;
-    height: 40px;
+/* .ctrl-container .icon {
+    width: 60px;
+    height: 60px;
     cursor: pointer;
-}
+} */
 
 .ctrl-container img {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
 }
 
 .font-btns {
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(5, minmax(30px, 50px));
     grid-template-rows: 1fr 1fr;
     gap: 15px 30px;
@@ -234,6 +261,18 @@ canvas {
 
 .select-btn {
     grid-column: span 3;
+    width: 100%;
+    height: 100%;
+    /* border-radius: 10px; */
+    border: none;
+    font-size: 1.5rem;
+}
+
+.ctrl-btns {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(30px, 50px));
+    text-align: center;
+    justify-content: center;
 }
 
 /* memes-modal */
@@ -323,71 +362,6 @@ canvas {
     display: none;
 }
 
-@media(max-width: 560px) {
-    .ctrl-container {
-        width: 330px;
-        height: 330px
-    }
-    canvas {
-        display: block;
-        width: 350px;
-        margin: auto;
-    }
-    .canvas-container {
-        height: unset;
-    }
-    .meme-editor-container {
-        padding: 0;
-        flex-direction: column;
-        flex-wrap: unset;
-        height: unset;
-    }
-    .font-btns {
-        gap: 1px
-    }
-    .ctrl-container .icon {
-        width: 35px;
-        height: 35px;
-    }
-    body {
-        overflow: auto;
-    }
-    body::-webkit-scrollbar {
-        display: none;
-    }
-    .img-container {
-        grid-template-columns: repeat(auto-fit, 150px);
-        grid-auto-rows: 150px;
-    }
-}
-
-.share-btns {
-    width: 100%;
-    display: flex;
-    flex-wrap:wrap;
-    justify-content: center;
-    gap: 20px
-}
-
-.share-btns button {
-    background-color: #efefef;
-    color: black;
-    border-radius: 5px;
-    border: none;
-    font-size: 20px;
-}
-
-.share-btns a {
-    text-decoration: none;
-    color: black;
-    background-color: #efefef;
-    font-size:20px;
-}
-
-.keywords {
-    cursor: pointer;
-}
-
 /* MOBILE Mnu ONLY */
 
 @media (max-width: 720px) {
@@ -404,12 +378,49 @@ canvas {
         transition: transform .6s;
         z-index: 2;
     }
-    .btn-menu {
+    /* .btn-menu {
         display: inline-block;
         margin: 20px;
         cursor: pointer;
         background: none;
         border: none;
+    } */
+    .btn-menu {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        width: 80px;
+        /* border-radius:5px; */
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+        border: 4px solid white;
+        border-radius: 50px;
+        background-color: #fff;
+    }
+    .btn-menu .burger {
+        background: #2cb77b;
+        height: 6px;
+        width: 50px;
+        border-radius: 5px;
+        transition: all 0.5s ease-in-out;
+    }
+    .btn-menu .burger::before, .btn-menu .burger::after {
+        content: "";
+        position: absolute;
+        background: #2cb77b;
+        height: 6px;
+        width: 50px;
+        border: none;
+        border-radius: 5px;
+        transition: all 0.5s ease-in-out;
+    }
+    .btn-menu .burger::before {
+        transform: translateY(-16px)
+    }
+    .btn-menu .burger::after {
+        transform: translateY(16px)
     }
     body.menu-open .main-nav {
         transform: translateX(0);
@@ -435,15 +446,112 @@ canvas {
     }
 }
 
-@media(max-width: 720px) {
+@media(max-width: 560px) {
     .ctrl-container {
-        height: 400px
+        /* max-width: 520px; */
+        height: 400px;
+        padding: 0 15px;
+    }
+    canvas {
+        display: block;
+        min-width: 350px;
+        margin: auto;
     }
     .canvas-container {
         height: unset;
     }
-    .font-btns {
-        gap: 1px
+    .meme-editor-container {
+        padding: 0 18px;
+        flex-direction: column;
+        flex-wrap: unset;
+        height: unset;
+    }
+    .font-btns, .ctrl-btns {
+        gap: 5px
+    }
+    .font-btns button {
+        /* border: 5px solid black; */
+    }
+    .ctrl-container .icon {
+        width: 50px;
+        height: 50px;
+    }
+    body {
+        overflow: auto;
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    .img-container {
+        grid-template-columns: repeat(auto-fit, 150px);
+        grid-auto-rows: 150px;
+    }
+}
+
+.share-btns {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* .share-btns button {
+    background-color: #efefef;
+    color: black;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.3rem;
+} */
+
+.share-btns a {
+    display: inline-flex;
+    justify-content: center;
+    /* justify-items: center; */
+    align-items: center;
+    text-decoration: none;
+    height: 40px;
+    width: 100%;
+    /* line-height: 45px; */
+    color: black;
+    padding: 10px;
+    font-size: 1.3rem;
+}
+
+.btn {
+    cursor: pointer;
+    height: 42px;
+    display: inline-block;
+    padding: 10px;
+    font-size: 1.3rem;
+}
+
+.download, .save, .btn {
+    background-color: #efefef;
+    border: none;
+    color: black;
+}
+
+.keywords {
+    cursor: pointer;
+}
+
+@media(min-width: 560px) {
+    .ctrl-container {
+        height: 500px;
+        max-width: 520px;
+    }
+    .canvas-container {
+        height: unset;
+    }
+    .font-btns, .ctrl-btns {
+        gap: 10px
+    }
+    .ctrl-container .icon {
+        width: 50px;
+        height: 50px;
+        border: none;
+        cursor: pointer;
     }
     body {
         padding: 0 0;
@@ -451,16 +559,11 @@ canvas {
 }
 
 @media(min-width: 720px) {
-    .ctrl-container {
-        width: 500px;
-        height: 520px;
+    .ctrl-btns {
+        gap: 20px;
     }
     .canvas-container {
         width: 500px;
-    }
-    .ctrl-container .icon {
-        width: 40px;
-        height: 40px;
     }
     .font-btns {
         gap: 20px
@@ -491,6 +594,9 @@ canvas {
     /* .main-header li>*:not(:last-child){
         margin-inline-end: 20px;
     } */
+    body {
+        padding: 0 40px;
+    }
 }
 
 @media(min-width: 980px) {
@@ -503,7 +609,8 @@ canvas {
     }
     .gallery-header .search-container {
         display: inline-block;
-        width: 60%;
+        width: 57%;
+        margin-right: 3%;
     }
     .gallery-header .search-container {
         margin-bottom: 0;

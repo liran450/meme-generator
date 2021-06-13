@@ -3,6 +3,7 @@
 //upload user image
 function onImgInput(ev) {
     loadImageFromInput(ev, drawImg)
+    showMemePage()
 }
 
 function loadImageFromInput(ev, onImageReady) {
@@ -27,10 +28,11 @@ function uploadImg(elForm, ev) {
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share   
-        </a>`
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`)
+        // document.querySelector('.share-container').innerHTML = ` 
+        // <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+        //    Share   
+        // </a>`
     }
     let inputVal = elForm.querySelector('input').value
     doUploadImg(elForm, onSuccess, inputVal);
